@@ -65,7 +65,7 @@ class CI_Config {
 		log_message('debug', "Config Class Initialized");
 
 		// Set the base_url automatically if none was provided
-		if ($this->config['base_url'] == '')
+		if ($this->config['base_url'] == 'http://dscounterpos1.azurewebsites.net')
 		{
 			if (isset($_SERVER['SERVER_ADDR']))
 			{
