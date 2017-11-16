@@ -35,7 +35,7 @@ $config['base_url'] = '';
 |
 */
 $config['index_page'] = '';
-
+$config['permitted_uri_chars'] = 'a-z 0-9~%.:_\-\=';
 /*
 |--------------------------------------------------------------------------
 | URI PROTOCOL
