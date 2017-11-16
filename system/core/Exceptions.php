@@ -102,7 +102,7 @@ class CI_Exceptions {
 	 * @param 	bool	log error yes/no
 	 * @return	string
 	 */
-	function show_404($page = '', $log_error = FALSE)
+	function show_404($page = '', $log_error = TRUE)
 	{
 		$heading = "404 Page Not Found";
 		$message = "The page you requested was not found.";
