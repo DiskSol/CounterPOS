@@ -34,7 +34,7 @@ $config['base_url'] = 'http://dscounterpos1.azurewebsites.net';
 | variable so that it is blank.
 |
 */
-$config['index_page'] = '';
+$config['index_page'] = 'index.php';
 $config['permitted_uri_chars'] = 'a-z 0-9~%\.\:_\-';
 /*
 |--------------------------------------------------------------------------
