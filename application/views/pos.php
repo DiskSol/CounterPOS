@@ -68,7 +68,7 @@
       	<li data-toggle="tooltip"  data-html="true" data-placement="left" title="<?=label('CloseRegister');?>"><a href="javascript:void(0)" onclick="CloseRegister()"><i class="fa fa-times" aria-hidden="true"></i></a></li>
       	<li data-toggle="tooltip"  data-html="true" data-placement="left" title="<?=label('SwitchStore');?>"><a href="pos/switshregister"><i class="fa fa-random" aria-hidden="true"></i></a></li>
       </ul>
-      <div class="col-md-5 left-side" id="pos-left-side">
+      <div class="col-md-5 left-side">
          <div class="row">
             <div class="row row-horizon">
                <span class="holdList">
@@ -123,6 +123,37 @@
          <div id="productList">
             <!-- product List goes here  -->
          </div>
+         <div class="footer-section">
+            <div class="table-responsive col-sm-12 totalTab">
+               <table class="table">
+                  <tr>
+                     <td class="active" width="40%"><?=label("SubTotal");?></td>
+                     <td class="whiteBg" width="60%"><span id="Subtot"></span> <?=$this->setting->currency?>
+                        <span class="float-right"><b id="ItemsNum"><span></span> <?=label("item");?></b></span>
+                     </td>
+                  </tr>
+                  <tr>
+                     <td class="active"><?=label("OrderTAX");?></td>
+                     <td class="whiteBg"><input type="text" value="<?=$this->setting->tax;?>" onchange="total_change()" id="<?=strval($this->setting->keyboard) === '1' ? 'num01' : ''?>" class="total-input TAX" placeholder="N/A"  maxlength="5">
+                        <span class="float-right"><b id="taxValue"></b></span>
+                     </td>
+                  </tr>
+                  <tr>
+                     <td class="active"><?=label("Discount");?></td>
+                     <td class="whiteBg"><input type="text" value="<?=$this->setting->discount;?>" onchange="total_change()" id="<?=strval($this->setting->keyboard) === '1' ? 'num02' : ''?>" class="total-input Remise" placeholder="N/A"  maxlength="5">
+                        <span class="float-right"><b id="RemiseValue"></b></span>
+                     </td>
+                  </tr>
+                  <tr>
+                     <td class="active"><?=label("Total");?></td>
+                     <td class="whiteBg light-blue text-bold"><span id="total"></span> <?=$this->setting->currency?></td>
+                  </tr>
+               </table>
+            </div>
+            <button type="button" onclick="cancelPOS()" class="btn btn-red col-md-6 flat-box-btn"><h5 class="text-bold"><?=label('CANCEL');?></h5></button>
+            <button type="button" class="btn btn-green col-md-6 flat-box-btn" data-toggle="modal" data-target="#AddSale"><h5 class="text-bold"><?=label('PAYEMENT');?></h5></button>
+         </div>
+
       </div>
       <div class="col-md-7 right-side nopadding">
          <div class="row row-horizon">
@@ -145,63 +176,33 @@
               </div>
               <!-- product list section -->
          <div id="productList2">
-           <?php
-           for($i = 0; $i < 12; $i++) {
-             foreach ($products as $product):
-                $cheked = true;
-                $invis = $product->h_stores;
-                $invis = trim($invis, ",");
-                $array = explode(',', $invis); //split string into array seperated by ', '
-                foreach($array as $value) //loop over values
-                {
-                   $cheked = $value == $this->store ? false : $cheked;
-                }
-                if($cheked) {?>
-                <div class="product-wrapper">
-                      <a href="javascript:void(0)" class="addPct" id="product-<?=$product->code;?>" onclick="add_posale('<?=$product->id;?>')">
-                         <div class="product <?=$product->color;?> flat-box">
-                            <h3 id="proname"><?=$product->name;?></h3>
-                            <input type="hidden" id="idname-<?=$product->id;?>" name="name" value="<?=$product->name;?>" />
-                            <input type="hidden" id="idprice-<?=$product->id;?>" name="price" value="<?=$product->price;?>" />
-                            <input type="hidden" id="category" name="category" value="<?=$product->category;?>" />
-                            <div class="mask">
-                               <h3><?=number_format((float)$product->price, $this->setting->decimals, '.', '');?> <?=$this->setting->currency;?></h3>
-                               <p><?=character_limiter($product->description, 40);?></p>
-                            </div>
-                            <?php if($product->photo){ ?><img src="<?=base_url()?>files/products/<?=$product->photothumb;?>" alt="<?=$product->name;?>"><?php } ?>
-                         </div>
-                      </a>
-                </div>
-                <?php }
-             endforeach;
-           }
-            ?>
-         </div>
-         <div class="footer-section">
-            <div class="table-responsive col-sm-12 totalTab">
-               <table class="table">
-                  <tr>
-                     <td class="active" width="20%"><?=label("SubTotal");?></td>
-                     <td class="whiteBg" width="30%"><span id="Subtot"></span> <?=$this->setting->currency?>
-                        <span class="float-right"><b id="ItemsNum"><span></span> <?=label("item");?></b></span>
-                     </td>
-                     <td class="active" width="20%"><?=label("OrderTAX");?></td>
-                     <td class="whiteBg" width="30%"><input type="text" value="<?=$this->setting->tax;?>" onchange="total_change()" id="<?=strval($this->setting->keyboard) === '1' ? 'num01' : ''?>" class="total-input TAX" placeholder="N/A"  maxlength="5">
-                        <span class="float-right"><b id="taxValue"></b></span>
-                     </td>
-                  </tr>
-                  <tr>
-                     <td class="active"><?=label("Discount");?></td>
-                     <td class="whiteBg"><input type="text" value="<?=$this->setting->discount;?>" onchange="total_change()" id="<?=strval($this->setting->keyboard) === '1' ? 'num02' : ''?>" class="total-input Remise" placeholder="N/A"  maxlength="5">
-                        <span class="float-right"><b id="RemiseValue"></b></span>
-                     </td>
-                     <td class="active"><?=label("Total");?></td>
-                     <td class="whiteBg light-blue text-bold"><span id="total"></span> <?=$this->setting->currency?></td>
-                  </tr>
-               </table>
-            </div>
-            <button type="button" onclick="cancelPOS()" class="btn btn-red col-md-6 flat-box-btn"><h5 class="text-bold"><?=label('CANCEL');?></h5></button>
-            <button type="button" class="btn btn-green col-md-6 flat-box-btn" data-toggle="modal" data-target="#AddSale"><h5 class="text-bold"><?=label('PAYEMENT');?></h5></button>
+            <?php foreach ($products as $product):?>
+               <?php $cheked = true;
+               $invis = $product->h_stores;
+               $invis = trim($invis, ",");
+               $array = explode(',', $invis); //split string into array seperated by ', '
+               foreach($array as $value) //loop over values
+               {
+                  $cheked = $value == $this->store ? false : $cheked;
+               }
+               if($cheked) {?>
+               <div class="col-sm-2 col-xs-4">
+                     <a href="javascript:void(0)" class="addPct" id="product-<?=$product->code;?>" onclick="add_posale('<?=$product->id;?>')">
+                        <div class="product <?=$product->color;?> flat-box">
+                           <h3 id="proname"><?=$product->name;?></h3>
+                           <input type="hidden" id="idname-<?=$product->id;?>" name="name" value="<?=$product->name;?>" />
+                           <input type="hidden" id="idprice-<?=$product->id;?>" name="price" value="<?=$product->price;?>" />
+                           <input type="hidden" id="category" name="category" value="<?=$product->category;?>" />
+                           <div class="mask">
+                              <h3><?=number_format((float)$product->price, $this->setting->decimals, '.', '');?> <?=$this->setting->currency;?></h3>
+                              <p><?=character_limiter($product->description, 40);?></p>
+                           </div>
+                           <?php if($product->photo){ ?><img src="<?=base_url()?>files/products/<?=$product->photothumb;?>" alt="<?=$product->name;?>"><?php } ?>
+                        </div>
+                     </a>
+               </div>
+               <?php } ?>
+            <?php endforeach;?>
          </div>
       </div>
    </div>
@@ -585,6 +586,7 @@ function edit_posale(id)
         });
 
 }
+
 
 $("#customerSelect").change(function(){
 

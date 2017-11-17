@@ -527,6 +527,37 @@ div.dataTables_wrapper { clear: both; }
    overflow: hidden;
 }
 
+.product {
+   height: 120px;
+   width: 120px;
+   border-radius: 8px;
+   text-align: center;
+   background-size: cover;
+   margin-top: 20px;
+   color: #fff;
+   overflow: hidden;
+   -webkit-transition: all 0.3s ease-in-out 0.1s;
+   -moz-transition: all 0.3s ease-in-out 0.1s;
+   -o-transition: all 0.3s ease-in-out 0.1s;
+   -ms-transition: all 0.3s ease-in-out 0.1s;
+   transition: all 0.3s ease-in-out 0.1s;
+}
+
+.product img {
+   width: 120px;
+   height: 120px;
+   opacity: 0.3;
+   margin-top: -91px;
+   position: absolute;
+   left: 0;
+   top: 90px;
+   -webkit-transition: all 0.3s ease-in-out 0.1s;
+   -moz-transition: all 0.3s ease-in-out 0.1s;
+   -o-transition: all 0.3s ease-in-out 0.1s;
+   -ms-transition: all 0.3s ease-in-out 0.1s;
+   transition: all 0.3s ease-in-out 0.1s;
+}
+
 .product:hover img {
    -webkit-transform: scale(1.5);
    -moz-transform: scale(1.5);
