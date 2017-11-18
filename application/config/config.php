@@ -22,7 +22,7 @@
 | a PHP script and you can easily do that on your own.
 |
 */
-$config['base_url'] = 'http://localhost/zarpos2/';
+$config['base_url'] = 'http://dscounterpos1.azurewebsites.net';
 
 /*
 |--------------------------------------------------------------------------
@@ -34,8 +34,8 @@ $config['base_url'] = 'http://localhost/zarpos2/';
 | variable so that it is blank.
 |
 */
-$config['index_page'] = '';
-
+$config['index_page'] = 'index.php';
+$config['permitted_uri_chars'] = 'a-z 0-9~%\.\:_\-';
 /*
 |--------------------------------------------------------------------------
 | URI PROTOCOL
@@ -52,7 +52,7 @@ $config['index_page'] = '';
 | 'ORIG_PATH_INFO'	Uses the ORIG_PATH_INFO
 |
 */
-$config['uri_protocol']	= 'AUTO';
+$config['uri_protocol']	= 'QUERY_STRING';
 
 /*
 |--------------------------------------------------------------------------
