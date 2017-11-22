@@ -35,12 +35,12 @@
 */
 
 // The following values will probably need to be changed.
-$db['default']['username'] = "b99a039dc48fa3";
-$db['default']['password'] = "af3f5b59";
-$db['default']['database'] = "ibmx_1853d25ed477a7f";
+$db['default']['username'] = "";
+$db['default']['password'] = "";
+$db['default']['database'] = "";
 
 // The following values can probably stay the same.
-$db['default']['hostname'] = "us-cdbr-sl-dfw-01.cleardb.net";
+$db['default']['hostname'] = "localhost";
 $db['default']['dbdriver'] = "mysql"; //Updated to latest driver.
 $db['default']['dbprefix'] = "";
 $db['default']['pconnect'] = TRUE;
